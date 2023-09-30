@@ -15,6 +15,12 @@ else # [[ "$MSYSTEM" == "CLANGARM64" ]];
     export ARTIFACTS_SUFFIX="-arm64"
     export MSYS2_ARCH="clang-aarch64"
     export MSYS_PREFIX="/c/msys64/clangarm64/"
+    # No luajit package on clangarm64 for the time being.
+fi
+
+export OPTIONAL_PACKAGES=""
+if [[ "$MSYSTEM" != "CLANGARM64" ]]; then
+  export OPTIONAL_PACKAGES="mingw-w64-$MSYS2_ARCH-luajit"
 fi
 
 export ACLOCAL_FLAGS="-I${MSYS2_PREFIX}/share/aclocal"
@@ -30,6 +36,8 @@ pacman --noconfirm -S --needed \
     mingw-w64-$MSYS2_ARCH-autotools \
     mingw-w64-$MSYS2_ARCH-ccache \
     mingw-w64-$MSYS2_ARCH-meson \
+    \
+    $OPTIONAL_PACKAGES \
     \
     mingw-w64-$MSYS2_ARCH-aalib \
     mingw-w64-$MSYS2_ARCH-appstream-glib \
@@ -61,7 +69,6 @@ pacman --noconfirm -S --needed \
     mingw-w64-$MSYS2_ARCH-libspiro \
     mingw-w64-$MSYS2_ARCH-libwebp \
     mingw-w64-$MSYS2_ARCH-libwmf \
-    mingw-w64-$MSYS2_ARCH-luajit \
     mingw-w64-$MSYS2_ARCH-maxflow \
     mingw-w64-$MSYS2_ARCH-mypaint-brushes \
     mingw-w64-$MSYS2_ARCH-openexr \

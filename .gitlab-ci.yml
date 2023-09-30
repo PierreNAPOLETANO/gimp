@@ -600,9 +600,9 @@ gimp-win-aarch64-native:
     when: always
     expire_in: 1 day
     paths:
-    - _install-w64
-    - _build-w64/build/windows/installer/
-    - _build-w64/meson-*/
+    - _install-arm64
+    - _build-arm64/build/windows/installer/
+    - _build-arm64/meson-*/
   cache:
     paths:
     - _ccache/
@@ -625,14 +625,14 @@ packaging-win-aarch64-native:
   script:
     - C:\msys64\usr\bin\pacman --noconfirm -Syyuu
     - C:\msys64\usr\bin\bash -lc "bash -x ./build/windows/gitlab-ci/package-gimp-msys2.sh"
-    - cd gimp-w64
+    - cd gimp-arm64
     - C:\msys64\usr\bin\bash -lc "bash -x ../build/windows/gitlab-ci/split-debug-msys2.sh"
   artifacts:
     name: "${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}"
     when: always
     expire_in: 1 day
     paths:
-    - gimp-w64
+    - gimp-arm64
     - done-dll.list
   needs: ["gimp-win-aarch64-native"]
 

@@ -89,27 +89,12 @@ class Path:
             self.svgpath = self.svgpath + svg
 
    def writesvgfile (self, outfile):
-      if self.svgpath:
-         svg = svgtemplate % (self.bounds[2]-self.bounds[0],
-                              self.bounds[3]-self.bounds[1],
-                              self.name,
-                              -self.bounds[0], -self.bounds[1],
-                              self.svgpath)
-      else:
-         svg = emptysvgtemplate
+      svg = svgtemplate % (self.bounds[2]-self.bounds[0], self.bounds[3]-self.bounds[1], self.name, -self.bounds[0], -self.bounds[1], self.svgpath) if self.svgpath else emptysvgtemplate
       outfile.write (svg)
 
 
-if len (sys.argv) > 1:
-   infile = open (sys.argv[1])
-else:
-   infile = sys.stdin
-
-if len (sys.argv) > 2:
-   outfile = open (sys.argv[2], "w")
-else:
-   outfile = sys.stdout
-
+infile = open (sys.argv[1]) if len (sys.argv) > 1 else sys.stdin
+outfile = open (sys.argv[2], "w") if len (sys.argv) > 2 else sys.stdout
 
 path = Path()
 path.readgimpfile (infile)
